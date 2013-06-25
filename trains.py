@@ -8,20 +8,17 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'])
 
 
-class MainPage(webapp2.RequestHandler):
+class IndexPage(webapp2.RequestHandler):
 
     def get(self):
-        name = 'Xuebing'
-        template_values = {
-            'name': name,
-        }
-
         template = JINJA_ENVIRONMENT.get_template('index.html')
-        self.response.write(template.render(template_values))
-        #self.response.headers['Content-Type'] = 'text/plain'
-        #self.response.write('Hello, webapp2 World!')
+        self.response.write(template.render({}))
+
+    def post(self):
+        post_request = self.request.body
+        self.response.write(post_request)
 
 
 application = webapp2.WSGIApplication([
-    ('/', MainPage),
+    ('/', IndexPage),
 ], debug=True)
