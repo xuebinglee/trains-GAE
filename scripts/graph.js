@@ -252,9 +252,9 @@ function restart() {
   force.start();
 }
 
-function mousedown() {
+function dblclick() {
   // prevent I-bar on drag
-  //d3.event.preventDefault();
+  d3.event.preventDefault();
 
   // because :active only works in WebKit?
   svg.classed('active', true);
@@ -362,7 +362,7 @@ function keyup() {
 }
 
 // app starts here
-svg.on('mousedown', mousedown)
+svg.on('dblclick', dblclick)
   .on('mousemove', mousemove)
   .on('mouseup', mouseup);
 d3.select(window)
