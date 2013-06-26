@@ -8,7 +8,7 @@ class Town():
         self.__edges[destinationID] = distance
 
     def deleteEdge(self, destinationID):
-        if destinationID not in self.__edges.values():
+        if destinationID not in self.__edges.keys():
             raise Exception('The to-be-deleted edge does not exist.')
         del self.__edges[destinationID]
 
