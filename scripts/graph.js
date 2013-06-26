@@ -1,3 +1,6 @@
+// Const
+var DEFAULT_LENGTH = 5;
+
 // set up SVG for D3
 var width  = 1024,
     height = 768,
@@ -19,8 +22,8 @@ var nodes = [
   ],
   lastNodeId = 2,
   links = [
-    {source: nodes[0], target: nodes[1], left: false, right: true },
-    {source: nodes[1], target: nodes[2], left: false, right: true }
+    {source: nodes[0], target: nodes[1], left: false, right: true , length: DEFAULT_LENGTH},
+    {source: nodes[1], target: nodes[2], left: false, right: true , length: DEFAULT_LENGTH}
   ];
 
 // init D3 force layout
@@ -122,7 +125,10 @@ function restart() {
 
       // select link
       mousedown_link = d;
-      if(mousedown_link === selected_link) selected_link = null;
+      if(mousedown_link === selected_link) {
+        selected_link = null;
+        d3.select('#firstP').text('');
+      }
       else {
         selected_link = mousedown_link;
         if(selected_link.left && selected_link.right)
@@ -131,6 +137,7 @@ function restart() {
           console.log('Link '+selected_link.target.id+'->'+selected_link.source.id+' selected.');
         else
           console.log('Link '+selected_link.source.id+'->'+selected_link.target.id+' selected.');
+        d3.select('#firstP').text('Length: '+selected_link.length);
       }
       selected_node = null;
       restart();
@@ -179,6 +186,7 @@ function restart() {
         console.log('Node '+selected_node.id+' selected.');
       }
       selected_link = null;
+      d3.select('#firstP').text('');
 
       // reposition drag line
       drag_line
@@ -210,30 +218,43 @@ function restart() {
         source = mousedown_node;
         target = mouseup_node;
         direction = 'right';
-        console.log('Link '+source.id+'->'+target.id+' created or updated.');
       } else {
         source = mouseup_node;
         target = mousedown_node;
         direction = 'left';
-        console.log('Link '+target.id+'->'+source.id+' created or updated.');
       }
 
 
       var link;
+      // try to find a link with the same source and target
       link = links.filter(function(l) {
         return (l.source === source && l.target === target);
       })[0];
 
-      if(link) {
-        link[direction] = true;
+      if(link) { // if such link exists
+        // update the found link
+        if (link[direction] == false)
+        {
+          if (direction == 'right')
+            console.log('Link '+source.id+'->'+target.id+' created.');
+          else
+            console.log('Link '+target.id+'->'+source.id+' created.');
+          link[direction] = true;
+        } // otherwise there's no need to update
       } else {
-        link = {source: source, target: target, left: false, right: false};
+        // create a new link
+        if (direction == 'right')
+          console.log('Link '+source.id+'->'+target.id+' created.');
+        else
+          console.log('Link '+target.id+'->'+source.id+' created.');
+        link = {source: source, target: target, left: false, right: false, length: DEFAULT_LENGTH};
         link[direction] = true;
         links.push(link);
       }
 
       // select new link
       selected_link = link;
+      d3.select('#firstP').text('Length: '+selected_link.length);
       selected_node = null;
       restart();
     });
@@ -342,7 +363,7 @@ function keydown() {
         else
           console.log('Link '+selected_link.source.id+'->'+selected_link.target.id+' deleted.');
       }
-      selected_link = null;
+      selected_link = null; d3.select('#firstP').text('');
       selected_node = null;
       restart();
       break;
