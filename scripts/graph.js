@@ -127,7 +127,7 @@ function restart() {
       mousedown_link = d;
       if(mousedown_link === selected_link) {
         selected_link = null;
-        d3.select('#firstP').text('');
+        viewLengthUpdate();
       }
       else {
         selected_link = mousedown_link;
@@ -137,7 +137,7 @@ function restart() {
           console.log('Link '+selected_link.target.id+'->'+selected_link.source.id+' selected.');
         else
           console.log('Link '+selected_link.source.id+'->'+selected_link.target.id+' selected.');
-        d3.select('#firstP').text('Length: '+selected_link.length);
+        viewLengthUpdate();
       }
       selected_node = null;
       restart();
@@ -186,7 +186,7 @@ function restart() {
         console.log('Node '+selected_node.id+' selected.');
       }
       selected_link = null;
-      d3.select('#firstP').text('');
+      viewLengthUpdate();
 
       // reposition drag line
       drag_line
@@ -254,7 +254,7 @@ function restart() {
 
       // select new link
       selected_link = link;
-      d3.select('#firstP').text('Length: '+selected_link.length);
+      viewLengthUpdate();
       selected_node = null;
       restart();
     });
@@ -363,9 +363,23 @@ function keydown() {
         else
           console.log('Link '+selected_link.source.id+'->'+selected_link.target.id+' deleted.');
       }
-      selected_link = null; d3.select('#firstP').text('');
+      selected_link = null;
+      viewLengthUpdate();
       selected_node = null;
       restart();
+      break;
+    case 38: // up arrow
+      if(selected_link) {
+        selected_link.length++;
+        viewLengthUpdate();
+      }
+      break;
+    case 40: // down arrow
+      if(selected_link) {
+        if(selected_link.length > 1)
+          selected_link.length--;
+        viewLengthUpdate();
+      }
       break;
   }
 }
@@ -381,6 +395,14 @@ function keyup() {
     svg.classed('ctrl', false);
   }
 }
+
+function viewLengthUpdate() {
+  if (selected_link)
+    d3.select('#firstP').text('Length: '+selected_link.length);
+  else
+    d3.select('#firstP').text('');
+}
+
 
 // app starts here
 svg.on('dblclick', dblclick)
