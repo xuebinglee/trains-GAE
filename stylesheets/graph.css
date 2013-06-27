@@ -8,6 +8,10 @@ svg {
   user-select: none;
 }
 
+#canvas {
+  border: 1px solid;
+}
+
 svg:not(.active):not(.ctrl) {
   cursor: crosshair;
 }
@@ -15,7 +19,7 @@ svg:not(.active):not(.ctrl) {
 path.link {
   fill: none;
   stroke: #000;
-  stroke-width: 4px;
+  stroke-width: 6px;
   cursor: default;
 }
 

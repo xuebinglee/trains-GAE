@@ -55,18 +55,104 @@ def AddTown():
 
 @route('/Town/Delete', method='POST')
 def DeleteTown():
-    pass
+    # create or fetch G from datastore
+    session = bottle.request.environ.get('beaker.session')
+    entity = EntityGraph.get_by_key_name(session.id)
+    if entity is None:  # first time
+        entity = EntityGraph(key_name=session.id, G=Graph())
+    G = entity.G
+
+    townID = request.POST['townID']
+    G.deleteTown(townID)
+
+    # store G
+    entity.G = G
+    entity.put()
+
+    return str(G)
 
 
 @route('/Edge/Add', method='POST')
 @route('/Edge/Update', method='POST')
 def AddOrUpdateEdge():
-    pass
+    # create or fetch G from datastore
+    session = bottle.request.environ.get('beaker.session')
+    entity = EntityGraph.get_by_key_name(session.id)
+    if entity is None:  # first time
+        entity = EntityGraph(key_name=session.id, G=Graph())
+    G = entity.G
+
+    originID = request.POST['originID']
+    destinationID = request.POST['destinationID']
+    distance = int(request.POST['distance'])
+    G.addOrUpdateEdge(originID, destinationID, distance)
+
+    # store G
+    entity.G = G
+    entity.put()
+
+    return str(G)
+
+
+@route('/Edge/Update/Both', method='POST')
+def UpdateBothEdges():
+    # create or fetch G from datastore
+    session = bottle.request.environ.get('beaker.session')
+    entity = EntityGraph.get_by_key_name(session.id)
+    if entity is None:  # first time
+        entity = EntityGraph(key_name=session.id, G=Graph())
+    G = entity.G
+
+    originID = request.POST['originID']
+    destinationID = request.POST['destinationID']
+    distance = int(request.POST['distance'])
+    G.addOrUpdateEdge(originID, destinationID, distance)
+    G.addOrUpdateEdge(destinationID, originID, distance)
+
+    # store G
+    entity.G = G
+    entity.put()
+
+    return str(G)
 
 
 @route('/Edge/Delete', method='POST')
 def DeleteEdge():
-    pass
+    # create or fetch G from datastore
+    session = bottle.request.environ.get('beaker.session')
+    entity = EntityGraph.get_by_key_name(session.id)
+    if entity is None:  # first time
+        entity = EntityGraph(key_name=session.id, G=Graph())
+    G = entity.G
+
+    originID = request.POST['originID']
+    destinationID = request.POST['destinationID']
+    G.deleteEdge(originID, destinationID)
+
+    # store G
+    entity.G = G
+    entity.put()
+
+    return str(G)
+
+
+@route('/Edge/Delete/Both', method='POST')
+def DeleteBothEdges():
+    # fetch G from datastore
+    session = bottle.request.environ.get('beaker.session')
+    entity = EntityGraph.get_by_key_name(session.id)
+    G = entity.G
+
+    originID = request.POST['originID']
+    destinationID = request.POST['destinationID']
+    G.deleteEdge(originID, destinationID)
+    G.deleteEdge(destinationID, originID)
+
+    # store G
+    entity.G = G
+    entity.put()
+
+    return str(G)
 
 
 @error(404)

@@ -2,30 +2,39 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Directed Graph Editor</title>
-    <script src="/scripts/d3.v3.js"></script>
+    <title>Directed Weighted Graph Editor</title>
     <script src="/scripts/jquery-1.10.1.js"></script>
+    <script src="/scripts/d3.v3.js"></script>
     <link rel="stylesheet" href="/stylesheets/graph.css">
+    <link rel="stylesheet" href="/stylesheets/loading.css">
   </head>
 
   <body>
+    <h1>Directed Weighted Graph Editor</h1>
     <p id="firstP"></p>
     <div>
         <h2 id="GraphHeading">Graph (Click to View)</h2>
-        <p id="Graph"></p>
+        <p id="Graph">
+            Town: 0<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->1 5<br />
+            Town: 1<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->2 5<br />
+            Town: 2<br />
+        </p>
     </div>
     <h2 id="HowToUseHeading">How To Use</h2>
     <div id="HowToUse">
-        <strong>Add a Node</strong>:  <strong>double click</strong> in the open space<br>
-        <strong>Add an Edge</strong>:  <strong>drag</strong> from one node to another<br>
-        <strong>Move the Graph Layout</strong>:  <strong>Ctrl-drag</strong> a node<br>
-        <strong>Click</strong> a node or an edge to <strong>select</strong> it.<br>
-        <br>
-        When a node is selected: Hit <strong>Delete</strong> to remove the node.<br>
+        <strong>Add a Node</strong>:  <strong>double click</strong> in the open space<br />
+        <strong>Add an Edge</strong>:  <strong>drag</strong> from one node to another<br />
+        <strong>Move the Graph Layout</strong>:  <strong>Ctrl-drag</strong> a node<br />
+        <strong>Click</strong> a node or an edge to <strong>select</strong> it.<br />
+        <br />
+        When a node is selected: Hit <strong>Delete</strong> to remove the node.<br />
         When an edge is selected: Hit <strong>Delete</strong> to remove the edge. Hit <strong>Up Arrow</strong> to increment its length by one. Hit <strong>Down Arrow</strong> to decrement its length by one.
     </div>
-    <script src="/scripts/graph.js"></script>
     <script src="/scripts/ajax.js"></script>
+    <script src="/scripts/graph.js"></script>
     <script src="/scripts/viewUpdate.js"></script>
+    <div class="modal"><!-- Place at bottom of page --></div>
   </body>
 </html>

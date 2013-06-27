@@ -1,15 +1,18 @@
+// This is a modified version of a d3.js example called Directed Graph Editor,
+// which can be found at http://bl.ocks.org/rkirsling/5001347
 // Const
 var DEFAULT_LENGTH = 5;
 
 // set up SVG for D3
 var width  = 1024,
-    height = 768,
+    height = 502,
     colors = d3.scale.category10();
 
 var svg = d3.select('body')
   .insert('svg', '#firstP')
   .attr('width', width)
-  .attr('height', height);
+  .attr('height', height)
+  .attr('id', 'canvas');
 
 // set up initial nodes and links
 //  - nodes are known by 'id', not by index in array.
@@ -232,21 +235,29 @@ function restart() {
       })[0];
 
       if(link) { // if such link exists
-        // update the found link
+        // update the found link with the other direction
         if (link[direction] == false)
         {
-          if (direction == 'right')
+          if (direction == 'right') {
+            ajaxAddEdge(source.id, target.id, link.length);
             console.log('Link '+source.id+'->'+target.id+' created.');
-          else
+          }
+          else {
+            ajaxAddEdge(target.id, source.id, link.length);
             console.log('Link '+target.id+'->'+source.id+' created.');
+          }
           link[direction] = true;
         } // otherwise there's no need to update
       } else {
         // create a new link
-        if (direction == 'right')
+        if (direction == 'right') {
+          ajaxAddEdge(source.id, target.id, DEFAULT_LENGTH);
           console.log('Link '+source.id+'->'+target.id+' created.');
-        else
+        }
+        else {
+          ajaxAddEdge(target.id, source.id, DEFAULT_LENGTH);
           console.log('Link '+target.id+'->'+source.id+' created.');
+        }
         link = {source: source, target: target, left: false, right: false, length: DEFAULT_LENGTH};
         link[direction] = true;
         links.push(link);
@@ -278,7 +289,7 @@ function dblclick() {
   d3.event.preventDefault();
 
   // because :active only works in WebKit?
-  svg.classed('active', true);
+  svg.classed('active', false);
 
   if(d3.event.ctrlKey || mousedown_node || mousedown_link) return;
 
@@ -288,8 +299,8 @@ function dblclick() {
   node.x = point[0];
   node.y = point[1];
   nodes.push(node);
-  console.log('Node '+node.id+' created.');
   ajaxAddTown(node.id);
+  console.log('Node '+node.id+' created.');
 
   restart();
 }
@@ -324,12 +335,18 @@ function spliceLinksForNode(node) {
   });
   toSplice.map(function(l) {
     links.splice(links.indexOf(l), 1);
-    if(l.left && l.right)
+    if(l.left && l.right) {
+      ajaxDeleteBothEdges(l.source.id, l.target.id);
       console.log('Link '+l.source.id+'<->'+l.target.id+' deleted.');
-    else if(l.left && !l.right)
+    }
+    else if(l.left && !l.right) {
+      ajaxDeleteEdge(l.target.id, l.source.id);
       console.log('Link '+l.target.id+'->'+l.source.id+' deleted.');
-    else
+    }
+    else {
+      ajaxDeleteEdge(l.source.id, l.target.id);
       console.log('Link '+l.source.id+'->'+l.target.id+' deleted.');
+    }
   });
 }
 
@@ -354,15 +371,22 @@ function keydown() {
       if(selected_node) {
         nodes.splice(nodes.indexOf(selected_node), 1);
         spliceLinksForNode(selected_node);
+        ajaxDeleteTown(selected_node.id);
         console.log('Node '+selected_node.id+' deleted.');
       } else if(selected_link) {
         links.splice(links.indexOf(selected_link), 1);
-        if(selected_link.left && selected_link.right)
+        if(selected_link.left && selected_link.right) {
+          ajaxDeleteBothEdges(selected_link.source.id, selected_link.target.id);
           console.log('Link '+selected_link.source.id+'<->'+selected_link.target.id+' deleted.');
-        else if(selected_link.left && !selected_link.right)
+        }
+        else if(selected_link.left && !selected_link.right) {
+          ajaxDeleteEdge(selected_link.target.id, selected_link.source.id);
           console.log('Link '+selected_link.target.id+'->'+selected_link.source.id+' deleted.');
-        else
+        }
+        else {
+          ajaxDeleteEdge(selected_link.source.id, selected_link.target.id);
           console.log('Link '+selected_link.source.id+'->'+selected_link.target.id+' deleted.');
+        }
       }
       selected_link = null;
       viewLengthUpdate();
@@ -373,13 +397,38 @@ function keydown() {
       if(selected_link) {
         selected_link.length++;
         viewLengthUpdate();
+        if(selected_link.left && selected_link.right) {
+          ajaxUpdateBothEdges(selected_link.source.id, selected_link.target.id, selected_link.length);
+          console.log('The length of link '+selected_link.source.id+'<->'+selected_link.target.id+' changed to '+selected_link.length+'.');
+        }
+        else if(selected_link.left && !selected_link.right) {
+          ajaxUpdateEdge(selected_link.target.id, selected_link.source.id, selected_link.length);
+          console.log('The length of link '+selected_link.target.id+'->'+selected_link.source.id+' changed to '+selected_link.length+'.');
+        }
+        else {
+          ajaxUpdateEdge(selected_link.source.id, selected_link.target.id, selected_link.length);
+          console.log('The length of link '+selected_link.source.id+'->'+selected_link.target.id+' changed to '+selected_link.length+'.');
+        }
       }
       break;
     case 40: // down arrow
       if(selected_link) {
-        if(selected_link.length > 1)
+        if(selected_link.length > 1) {
           selected_link.length--;
-        viewLengthUpdate();
+          viewLengthUpdate();
+          if(selected_link.left && selected_link.right) {
+            ajaxUpdateBothEdges(selected_link.source.id, selected_link.target.id, selected_link.length);
+            console.log('The length of link '+selected_link.source.id+'<->'+selected_link.target.id+' changed to '+selected_link.length+'.');
+          }
+          else if(selected_link.left && !selected_link.right) {
+            ajaxUpdateEdge(selected_link.target.id, selected_link.source.id, selected_link.length);
+            console.log('The length of link '+selected_link.target.id+'->'+selected_link.source.id+' changed to '+selected_link.length+'.');
+          }
+          else {
+            ajaxUpdateEdge(selected_link.source.id, selected_link.target.id, selected_link.length);
+            console.log('The length of link '+selected_link.source.id+'->'+selected_link.target.id+' changed to '+selected_link.length+'.');
+          }
+        }
       }
       break;
   }

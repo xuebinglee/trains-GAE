@@ -5,6 +5,12 @@ class Graph():
     """Graph"""
     def __init__(self):
         self.__towns = []
+        # set up initial towns and edges
+        self.addTown('0')
+        self.addTown('1')
+        self.addTown('2')
+        self.addOrUpdateEdge('0', '1', 5)
+        self.addOrUpdateEdge('1', '2', 5)
 
     def addTown(self, townID):
         t = Town(townID)
