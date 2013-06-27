@@ -15,7 +15,7 @@ class Graph():
             raise Exception('Town does not exist.')
         self.__towns.remove(townID)
 
-    def updateEdge(self, originID, destinationID, distance):
+    def addOrUpdateEdge(self, originID, destinationID, distance):
         if originID not in self.__towns:
             raise Exception('Origin does not exist.')
         if destinationID not in self.__towns:
@@ -23,7 +23,7 @@ class Graph():
         if distance <= 0:
             raise Exception('Distance must be non-negative.')
         origin = next(town for town in self.__towns if town == originID)
-        origin.updateEdge(destinationID, distance)
+        origin.addOrUpdateEdge(destinationID, distance)
 
     def deleteEdge(self, originID, destinationID):
         if originID in self.__towns:
@@ -34,4 +34,7 @@ class Graph():
         rep = ''
         for town in self.__towns:
             rep += str(town)
-        return rep
+        if rep == '':
+            return 'Empty'
+        else:
+            return rep

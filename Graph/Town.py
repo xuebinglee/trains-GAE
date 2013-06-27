@@ -4,7 +4,7 @@ class Town():
         self.__id = id
         self.__edges = {}
 
-    def updateEdge(self, destinationID, distance):
+    def addOrUpdateEdge(self, destinationID, distance):
         self.__edges[destinationID] = distance
 
     def deleteEdge(self, destinationID):

@@ -11,20 +11,21 @@
   <body>
     <p id="firstP"></p>
     <div>
-        <h2>Graph</h2>
-        <p id="graph"></p>
+        <h2 id="GraphHeading">Graph (Click to View)</h2>
+        <p id="Graph"></p>
     </div>
-    <p>
-        <h2>How To Use</h2>
-        <strong>Add a Node</strong>:  double click in the open space<br>
-        <strong>Add an Edge</strong>:  drag from one node to another<br>
-        <strong>Move the Graph Layout</strong>:  Ctrl-drag a node<br>
-        Click a node or an edge to <strong>select</strong> it.<br>
+    <h2 id="HowToUseHeading">How To Use</h2>
+    <div id="HowToUse">
+        <strong>Add a Node</strong>:  <strong>double click</strong> in the open space<br>
+        <strong>Add an Edge</strong>:  <strong>drag</strong> from one node to another<br>
+        <strong>Move the Graph Layout</strong>:  <strong>Ctrl-drag</strong> a node<br>
+        <strong>Click</strong> a node or an edge to <strong>select</strong> it.<br>
         <br>
-        When a node is selected: Delete removes the node.<br>
-        When an edge is selected: Delete removes the edge. Up arrow increments its length by one. Down arrow decrements its length by one.
-    </p>
-    <div></div>
+        When a node is selected: Hit <strong>Delete</strong> to remove the node.<br>
+        When an edge is selected: Hit <strong>Delete</strong> to remove the edge. Hit <strong>Up Arrow</strong> to increment its length by one. Hit <strong>Down Arrow</strong> to decrement its length by one.
+    </div>
     <script src="/scripts/graph.js"></script>
+    <script src="/scripts/ajax.js"></script>
+    <script src="/scripts/viewUpdate.js"></script>
   </body>
 </html>

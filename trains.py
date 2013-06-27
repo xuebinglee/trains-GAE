@@ -58,8 +58,9 @@ def DeleteTown():
     pass
 
 
+@route('/Edge/Add', method='POST')
 @route('/Edge/Update', method='POST')
-def UpdateEdge():
+def AddOrUpdateEdge():
     pass
 
 

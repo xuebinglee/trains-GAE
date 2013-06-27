@@ -32,19 +32,19 @@ class DevTests(unittest.TestCase):
         # add an edge
         G.addTown('1')
         G.addTown('2')
-        G.updateEdge('1', '2', 3)
+        G.addOrUpdateEdge('1', '2', 3)
         assert str(G) == 'Town: 1\n      ->2 3\nTown: 2\n'
         # add another edge
         G.addTown('3')
-        G.updateEdge('1', '3', 4)
+        G.addOrUpdateEdge('1', '3', 4)
         self.assertRegexpMatches(str(G), r'->2 3')
         self.assertRegexpMatches(str(G), r'->3 4')
         # update the first edge
-        G.updateEdge('1', '2', 4)
+        G.addOrUpdateEdge('1', '2', 4)
         self.assertRegexpMatches(str(G), r'->2 4')
         # add an illegal edge
         with self.assertRaises(Exception) as context:
-            G.updateEdge('4', '3', 2)
+            G.addOrUpdateEdge('4', '3', 2)
         self.assertEqual(context.exception.message, 'Origin does not exist.')
         # delete the first edge
         G.deleteEdge('1', '2')
