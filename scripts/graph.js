@@ -289,6 +289,7 @@ function dblclick() {
   node.y = point[1];
   nodes.push(node);
   console.log('Node '+node.id+' created.');
+  ajaxAddTown(node.id);
 
   restart();
 }
@@ -403,6 +404,27 @@ function viewLengthUpdate() {
     d3.select('#firstP').text('');
 }
 
+function ajaxAddTown(townID) {
+  $.ajax({
+    url: '/Town/Add',
+    data: {
+      townID: townID
+    },
+    type: 'POST',
+    dataType: 'text',
+    success: function( response ) {
+      $('#graph').text(response);
+    },
+    error: function( xhr, status ) {
+      alert('Connection lost!\n' +
+            'xhr: ' + xhr + '\n' +
+            'status: ' + status);
+    },
+    complete: function( xhr, status ) {
+      console.log('Trying to add Town ' + townID);
+    }
+  });
+}
 
 // app starts here
 svg.on('dblclick', dblclick)
