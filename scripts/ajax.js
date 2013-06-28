@@ -67,30 +67,6 @@ function ajaxAddEdge(originID, destinationID, distance) {
 }
 var ajaxUpdateEdge = ajaxAddEdge;
 
-function ajaxUpdateBothEdges(originID, destinationID, distance) {
-  $.ajaxQueue({
-    url: '/Edge/Update/Both',
-    data: {
-      originID: originID,
-      destinationID: destinationID,
-      distance: distance
-    },
-    type: 'POST',
-    dataType: 'text',
-    success: function(response) {
-      $('#Graph').html(response.replace(/ /g,"&nbsp;").replace(/\r?\n/g, '<br />'));
-    },
-    error: function(xhr, status) {
-      alert('Failed to connect to server!\n' +
-            'xhr: ' + xhr + '\n' +
-            'status: ' + status);
-    },
-    complete: function(xhr, status) {
-      console.log('POST '+originID+'->'+destinationID+' '+distance+' to /Edge/Add');
-    }
-  });
-}
-
 function ajaxDeleteEdge(originID, destinationID) {
   $.ajaxQueue({
     url: '/Edge/Delete',
@@ -110,29 +86,6 @@ function ajaxDeleteEdge(originID, destinationID) {
     },
     complete: function(xhr, status) {
       console.log('POST '+originID+'->'+destinationID+' to /Edge/Delete');
-    }
-  });
-}
-
-function ajaxDeleteBothEdges(originID, destinationID) {
-  $.ajaxQueue({
-    url: '/Edge/Delete/Both',
-    data: {
-      originID: originID,
-      destinationID: destinationID,
-    },
-    type: 'POST',
-    dataType: 'text',
-    success: function(response) {
-      $('#Graph').html(response.replace(/ /g,"&nbsp;").replace(/\r?\n/g, '<br />'));
-    },
-    error: function(xhr, status) {
-      alert('Failed to connect to server!\n' +
-            'xhr: ' + xhr + '\n' +
-            'status: ' + status);
-    },
-    complete: function(xhr, status) {
-      console.log('POST '+originID+'->'+destinationID+' to /Edge/Delete/Both');
     }
   });
 }

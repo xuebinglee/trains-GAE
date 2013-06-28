@@ -336,7 +336,8 @@ function spliceLinksForNode(node) {
   toSplice.map(function(l) {
     links.splice(links.indexOf(l), 1);
     if(l.left && l.right) {
-      ajaxDeleteBothEdges(l.source.id, l.target.id);
+      ajaxDeleteEdge(l.source.id, l.target.id);
+      ajaxDeleteEdge(l.target.id, l.source.id);
       console.log('Link '+l.source.id+'<->'+l.target.id+' deleted.');
     }
     else if(l.left && !l.right) {
@@ -376,7 +377,8 @@ function keydown() {
       } else if(selected_link) {
         links.splice(links.indexOf(selected_link), 1);
         if(selected_link.left && selected_link.right) {
-          ajaxDeleteBothEdges(selected_link.source.id, selected_link.target.id);
+          ajaxDeleteEdge(selected_link.source.id, selected_link.target.id);
+          ajaxDeleteEdge(selected_link.target.id, selected_link.source.id);
           console.log('Link '+selected_link.source.id+'<->'+selected_link.target.id+' deleted.');
         }
         else if(selected_link.left && !selected_link.right) {
@@ -398,7 +400,8 @@ function keydown() {
         selected_link.length++;
         viewWeightUpdate();
         if(selected_link.left && selected_link.right) {
-          ajaxUpdateBothEdges(selected_link.source.id, selected_link.target.id, selected_link.length);
+          ajaxUpdateEdge(selected_link.source.id, selected_link.target.id, selected_link.length);
+          ajaxUpdateEdge(selected_link.target.id, selected_link.source.id, selected_link.length);
           console.log('The length of link '+selected_link.source.id+'<->'+selected_link.target.id+' changed to '+selected_link.length+'.');
         }
         else if(selected_link.left && !selected_link.right) {
@@ -417,7 +420,8 @@ function keydown() {
           selected_link.length--;
           viewWeightUpdate();
           if(selected_link.left && selected_link.right) {
-            ajaxUpdateBothEdges(selected_link.source.id, selected_link.target.id, selected_link.length);
+            ajaxUpdateEdge(selected_link.source.id, selected_link.target.id, selected_link.length);
+            ajaxUpdateEdge(selected_link.target.id, selected_link.source.id, selected_link.length);
             console.log('The length of link '+selected_link.source.id+'<->'+selected_link.target.id+' changed to '+selected_link.length+'.');
           }
           else if(selected_link.left && !selected_link.right) {
