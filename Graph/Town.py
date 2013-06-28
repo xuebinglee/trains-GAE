@@ -28,7 +28,7 @@ class Town():
     def __repr__(self):
         rep = 'Town: ' + self.__id + '\n'
         for destinationID, distance in self.__edges.iteritems():
-            rep += '      ->' + destinationID + ' ' + str(distance) + '\n'
+            rep += 'Edge:  ' + self.__id + '->' + destinationID + ' with a weight of ' + str(distance) + '\n'
         return rep
 
     # operator overloading

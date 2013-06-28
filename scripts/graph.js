@@ -130,7 +130,7 @@ function restart() {
       mousedown_link = d;
       if(mousedown_link === selected_link) {
         selected_link = null;
-        viewLengthUpdate();
+        viewWeightUpdate();
       }
       else {
         selected_link = mousedown_link;
@@ -140,7 +140,7 @@ function restart() {
           console.log('Link '+selected_link.target.id+'->'+selected_link.source.id+' selected.');
         else
           console.log('Link '+selected_link.source.id+'->'+selected_link.target.id+' selected.');
-        viewLengthUpdate();
+        viewWeightUpdate();
       }
       selected_node = null;
       restart();
@@ -189,7 +189,7 @@ function restart() {
         console.log('Node '+selected_node.id+' selected.');
       }
       selected_link = null;
-      viewLengthUpdate();
+      viewWeightUpdate();
 
       // reposition drag line
       drag_line
@@ -265,7 +265,7 @@ function restart() {
 
       // select new link
       selected_link = link;
-      viewLengthUpdate();
+      viewWeightUpdate();
       selected_node = null;
       restart();
     });
@@ -389,14 +389,14 @@ function keydown() {
         }
       }
       selected_link = null;
-      viewLengthUpdate();
+      viewWeightUpdate();
       selected_node = null;
       restart();
       break;
     case 38: // up arrow
       if(selected_link) {
         selected_link.length++;
-        viewLengthUpdate();
+        viewWeightUpdate();
         if(selected_link.left && selected_link.right) {
           ajaxUpdateBothEdges(selected_link.source.id, selected_link.target.id, selected_link.length);
           console.log('The length of link '+selected_link.source.id+'<->'+selected_link.target.id+' changed to '+selected_link.length+'.');
@@ -415,7 +415,7 @@ function keydown() {
       if(selected_link) {
         if(selected_link.length > 1) {
           selected_link.length--;
-          viewLengthUpdate();
+          viewWeightUpdate();
           if(selected_link.left && selected_link.right) {
             ajaxUpdateBothEdges(selected_link.source.id, selected_link.target.id, selected_link.length);
             console.log('The length of link '+selected_link.source.id+'<->'+selected_link.target.id+' changed to '+selected_link.length+'.');
@@ -446,9 +446,9 @@ function keyup() {
   }
 }
 
-function viewLengthUpdate() {
+function viewWeightUpdate() {
   if (selected_link)
-    d3.select('#firstP').text('Length: '+selected_link.length);
+    d3.select('#firstP').text('Weight: '+selected_link.length);
   else
     d3.select('#firstP').text('');
 }
