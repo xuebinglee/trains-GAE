@@ -1,5 +1,5 @@
 function ajaxAddTown(townID) {
-  $.ajax({
+  $.ajaxQueue({
     url: '/Town/Add',
     data: {
       townID: townID
@@ -21,9 +21,8 @@ function ajaxAddTown(townID) {
 }
 
 function ajaxDeleteTown(townID) {
-  $.ajax({
+  $.ajaxQueue({
     url: '/Town/Delete',
-    //async: false,
     data: {
       townID: townID
     },
@@ -44,9 +43,8 @@ function ajaxDeleteTown(townID) {
 }
 
 function ajaxAddEdge(originID, destinationID, distance) {
-  $.ajax({
+  $.ajaxQueue({
     url: '/Edge/Add',
-    //async: false,
     data: {
       originID: originID,
       destinationID: destinationID,
@@ -70,9 +68,8 @@ function ajaxAddEdge(originID, destinationID, distance) {
 var ajaxUpdateEdge = ajaxAddEdge;
 
 function ajaxUpdateBothEdges(originID, destinationID, distance) {
-  $.ajax({
+  $.ajaxQueue({
     url: '/Edge/Update/Both',
-    //async: false,
     data: {
       originID: originID,
       destinationID: destinationID,
@@ -95,9 +92,8 @@ function ajaxUpdateBothEdges(originID, destinationID, distance) {
 }
 
 function ajaxDeleteEdge(originID, destinationID) {
-  $.ajax({
+  $.ajaxQueue({
     url: '/Edge/Delete',
-    async: false,
     data: {
       originID: originID,
       destinationID: destinationID
@@ -119,9 +115,8 @@ function ajaxDeleteEdge(originID, destinationID) {
 }
 
 function ajaxDeleteBothEdges(originID, destinationID) {
-  $.ajax({
+  $.ajaxQueue({
     url: '/Edge/Delete/Both',
-    async: false,
     data: {
       originID: originID,
       destinationID: destinationID,
