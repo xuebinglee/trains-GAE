@@ -29,6 +29,13 @@ var nodes = [
     {source: nodes[1], target: nodes[2], left: false, right: true , length: DEFAULT_LENGTH}
   ];
 
+// set up initial nodes and links
+ajaxAddTown('0');
+ajaxAddTown('1');
+ajaxAddTown('2');
+ajaxAddEdge('0', '1', DEFAULT_LENGTH);
+ajaxAddEdge('1', '2', DEFAULT_LENGTH);
+
 // init D3 force layout
 var force = d3.layout.force()
     .nodes(nodes)
