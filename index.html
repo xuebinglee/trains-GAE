@@ -1,35 +1,51 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Directed Weighted Graph Editor</title>
     <script src="/scripts/jquery-1.10.1.js"></script>
     <script src="/scripts/jquery.ajaxQueue.js"></script>
     <script src="/scripts/d3.v3.js"></script>
     <link rel="stylesheet" href="/stylesheets/graph.css">
     <link rel="stylesheet" href="/stylesheets/loading.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
   </head>
 
   <body>
-    <h1>Directed Weighted Graph Editor</h1>
-    <p id="firstP"></p>
-    <div>
-        <h2 id="GraphHeading">Graph (Click to View)</h2>
-        <p id="Graph">Empty</p>
-    </div>
-    <h2 id="HowToUseHeading">How To Use</h2>
-    <div id="HowToUse">
-        <strong>Add a Node</strong>:  <strong>double click</strong> in the open space<br />
-        <strong>Add an Edge</strong>:  <strong>drag</strong> from one node to another<br />
-        <strong>Move the Graph Layout</strong>:  <strong>Ctrl-drag</strong> a node<br />
-        <strong>Click</strong> a node or an edge to <strong>select</strong> it.<br />
-        <br />
-        When a node is selected: Hit <strong>Delete</strong> to remove the node.<br />
-        When an edge is selected: Hit <strong>Delete</strong> to remove the edge. Hit <strong>Up Arrow</strong> to increment its length by one. Hit <strong>Down Arrow</strong> to decrement its length by one.
+    <div class="container" id="container">
+        <h1>Directed Weighted Graph Editor</h1>
+        <br>
+        <p id="graph"></p>
+        <h2 id="HowToUseHeading">How To Use</h2>
+        <div id="HowToUse">
+            <strong>Add a Node</strong>:  <strong>double click</strong> in the open space<br />
+            <strong>Add an Edge</strong>:  <strong>drag</strong> from one node to another<br />
+            <strong>Move the Graph Layout</strong>:  <strong>Ctrl-drag</strong> a node<br />
+            <strong>Click</strong> a node or an edge to <strong>select</strong> it.<br />
+            <br />
+            When a node is selected: Hit <strong>Delete</strong> to remove the node.<br />
+            When an edge is selected: Hit <strong>Delete</strong> to remove the edge. Hit <strong>Up Arrow</strong> to increment its length by one. Hit <strong>Down Arrow</strong> to decrement its length by one.
+        </div>
+        <div>
+            <h2 id="GraphHeading">Graph Content (Click to View)</h2>
+            <p id="GraphContent">Empty</p>
+        </div>
     </div>
     <script src="/scripts/ajax.js"></script>
     <script src="/scripts/graph.js"></script>
     <script src="/scripts/viewUpdate.js"></script>
+    <!-- Latest compiled and minified Bootstrap JavaScript -->
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
     <div class="modal"><!-- Place at bottom of page --></div>
   </body>
 </html>

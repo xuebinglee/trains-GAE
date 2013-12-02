@@ -6,10 +6,10 @@ var DEFAULT_LENGTH = 5;
 // set up SVG for D3
 var width  = 1024,
     height = 502,
-    colors = d3.scale.category10();
+    colors = d3.scale.category20b();
 
-var svg = d3.select('body')
-  .insert('svg', '#firstP')
+var svg = d3.select('#container')
+  .insert('svg', '#graph')
   .attr('width', width)
   .attr('height', height)
   .attr('id', 'canvas');

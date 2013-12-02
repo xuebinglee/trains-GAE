@@ -1,19 +1,19 @@
 // execute the code when the page is fully loaded
 $(document).ready(function() {
     // Graph
-    $('#Graph').hide();
+    $('#GraphContent').hide();
     var graphHidden = true;
 
     $('#GraphHeading').click(function() {
         if(graphHidden) {
-            $('#Graph').slideDown(duration=500);
+            $('#GraphContent').slideDown(duration=500);
             graphHidden = false;
-            $('#GraphHeading').text('Graph');
+            $('#GraphHeading').text('Graph Content');
         }
         else{
-            $('#Graph').slideUp(duration=500, callback=function() {
+            $('#GraphContent').slideUp(duration=500, callback=function() {
                 graphHidden = true;
-                $('#GraphHeading').text('Graph (Click to View)');
+                $('#GraphHeading').text('Graph Content (Click to View)');
             });
         }
     });

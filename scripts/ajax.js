@@ -7,7 +7,7 @@ function ajaxAddTown(townID) {
     type: 'POST',
     dataType: 'text',
     success: function(response) {
-      $('#Graph').html(response.replace(/ /g,"&nbsp;").replace(/\r?\n/g, '<br />'));
+      $('#GraphContent').html(response.replace(/ /g,"&nbsp;").replace(/\r?\n/g, '<br />'));
     },
     error: function(xhr, status) {
       alert('Failed to connect to server!\n' +
@@ -29,7 +29,7 @@ function ajaxDeleteTown(townID) {
     type: 'POST',
     dataType: 'text',
     success: function(response) {
-      $('#Graph').html(response.replace(/ /g,"&nbsp;").replace(/\r?\n/g, '<br />'));
+      $('#GraphContent').html(response.replace(/ /g,"&nbsp;").replace(/\r?\n/g, '<br />'));
     },
     error: function(xhr, status) {
       alert('Failed to connect to server!\n' +
@@ -53,7 +53,7 @@ function ajaxAddEdge(originID, destinationID, distance) {
     type: 'POST',
     dataType: 'text',
     success: function(response) {
-      $('#Graph').html(response.replace(/ /g,"&nbsp;").replace(/\r?\n/g, '<br />'));
+      $('#GraphContent').html(response.replace(/ /g,"&nbsp;").replace(/\r?\n/g, '<br />'));
     },
     error: function(xhr, status) {
       alert('Failed to connect to server!\n' +
@@ -77,7 +77,7 @@ function ajaxDeleteEdge(originID, destinationID) {
     type: 'POST',
     dataType: 'text',
     success: function(response) {
-      $('#Graph').html(response.replace(/ /g,"&nbsp;").replace(/\r?\n/g, '<br />'));
+      $('#GraphContent').html(response.replace(/ /g,"&nbsp;").replace(/\r?\n/g, '<br />'));
     },
     error: function(xhr, status) {
       alert('Failed to connect to server!\n' +
